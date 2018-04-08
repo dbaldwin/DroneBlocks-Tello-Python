@@ -13,6 +13,9 @@ tello_address = ('192.168.10.1', 8889)
 # Create a UDP connection that we'll send the command to
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
+# Let's be explicit and bind to a local port on our machine where Tello can send messages
+sock.bind(('',9000))
+
 # Function to send messages to Tello
 def send(message):
   try:
