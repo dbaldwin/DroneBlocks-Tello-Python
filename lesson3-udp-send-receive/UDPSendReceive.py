@@ -4,7 +4,6 @@
 
 # Import the built-in socket package
 import socket
-import threading
 import time
 
 # IP and port of Tello
