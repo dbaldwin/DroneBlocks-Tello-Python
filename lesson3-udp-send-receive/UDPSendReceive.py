@@ -17,10 +17,11 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 def send(message):
   try:
     sock.sendto(message.encode(), tello_address)
+    print("Sending message: " + message)
   except Exception as e:
     print("Error sending: " + str(e))
 
-# Function that listens for messages from Tello
+# Function that listens for messages from Tello and prints them to the screen
 def receive():
   try:
     response, ip_address = sock.recvfrom(128)
@@ -32,20 +33,14 @@ def receive():
 # Send Tello into command mode
 send("command")
 
-# Delay 1 second
-time.sleep(1)
-
 # Receive response from Tello
 receive()
 
-# Delay 1 second
-time.sleep(1)
+# Delay 3 seconds before we send the next command
+time.sleep(3)
 
-# Ask Tello its battery percentage remaining
+# Ask Tello about battery status
 send("battery?")
-
-# Delay 1 second
-time.sleep(1)
 
 # Receive battery response from Tello
 receive()
