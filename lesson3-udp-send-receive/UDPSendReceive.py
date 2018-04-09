@@ -2,7 +2,7 @@
 # This script is part of our course on Tello drone programming
 # https://learn.droneblocks.io/p/tello-drone-programming-with-python/
 
-# Import the built-in socket package
+# Import the built-in socket and time modules
 import socket
 import time
 
@@ -13,7 +13,7 @@ tello_address = ('192.168.10.1', 8889)
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Let's be explicit and bind to a local port on our machine where Tello can send messages
-sock.bind(('',9000))
+sock.bind(('', 9000))
 
 # Function to send messages to Tello
 def send(message):
