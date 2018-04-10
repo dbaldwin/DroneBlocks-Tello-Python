@@ -87,3 +87,6 @@ send("cw " + str(yaw_angle), 3)
 
 # Land
 send("land", 5)
+
+# Close the socket
+sock.close()
