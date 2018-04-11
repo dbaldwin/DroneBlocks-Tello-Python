@@ -1,4 +1,4 @@
-# This example script demonstrates how use Python to fly Tello in a box mission
+# This example script demonstrates how to use Python to fly Tello in a box mission
 # This script is part of our course on Tello drone programming
 # https://learn.droneblocks.io/p/tello-drone-programming-with-python/
 
@@ -40,7 +40,10 @@ def receive():
       response, ip_address = sock.recvfrom(128)
       print("Received message: " + response.decode(encoding='utf-8'))
     except Exception as e:
+      # If there's an error close the socket and break out of the loop
+      sock.close()
       print("Error receiving: " + str(e))
+      break
 
 # Create and start a listening thread that runs in the background
 # This utilizes our receive functions and will continuously monitor for incoming messages

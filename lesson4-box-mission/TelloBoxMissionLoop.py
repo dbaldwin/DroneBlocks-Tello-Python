@@ -1,4 +1,4 @@
-# This example script is the same as the TelloBoxMission, but with a loop
+# This example script demonstrates how to use Python to fly Tello in a box mission with a loop
 # This script is part of our course on Tello drone programming
 # https://learn.droneblocks.io/p/tello-drone-programming-with-python/
 
@@ -27,25 +27,30 @@ def send(message, delay):
     print("Sending message: " + message)
   except Exception as e:
     print("Error sending: " + str(e))
-  
+
   # Delay for a user-defined period of time
   time.sleep(delay)
 
 # Receive the message from Tello
 def receive():
-  # Try to receive the message otherwise print the exception
-  try:
-    response, ip_address = sock.recvfrom(128)
-    print("Received message: " + response.decode(encoding='utf-8'))
-  except Exception as e:
-    print("Error receiving: " + str(e))
+  # Continuously loop and listen for incoming messages
+  while True:
+    # Try to receive the message otherwise print the exception
+    try:
+      response, ip_address = sock.recvfrom(128)
+      print("Received message: " + response.decode(encoding='utf-8'))
+    except Exception as e:
+      # If there's an error close the socket and break out of the loop
+      sock.close()
+      print("Error receiving: " + str(e))
+      break
 
 # Create and start a listening thread that runs in the background
 # This utilizes our receive functions and will continuously monitor for incoming messages
 receiveThread = threading.Thread(target=receive)
-#receiveThread.daemon = True
+receiveThread.daemon = True
 receiveThread.start()
-    
+
 # Each leg of the box will be 100 cm. Tello uses cm units by default.
 box_leg_distance = 100
 
@@ -70,6 +75,9 @@ for i in range(4):
 
 # Land
 send("land", 5)
+
+# Print message
+print("Mission completed successfully!")
 
 # Close the socket
 sock.close()
