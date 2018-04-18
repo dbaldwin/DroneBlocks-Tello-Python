@@ -51,22 +51,54 @@ receiveThread = threading.Thread(target=receive)
 receiveThread.daemon = True
 receiveThread.start()
 
-# Tello commands respond that they are successful by sending an OK response. This means Tello
-# recognizes the command but the instruction hasn't completed. OK is Tello saying "I got the message"
+# Tello commands respond with an OK when sucessful. This means Tello asdf
+# recognizes the command, but the instruction hasn't completed. OK is Tello saying "I got the message"
 # but not necessarily saying "I completed the command"
 # This means we need to calculate how long the spin will take before we execute the next command.
-def spin(direction, angle):
-  if (direction == "right"):
-    send("cw " + angle)
-  elif:
-    send("ccw " + angle)
+# Based on our tests a single 360 rotation takes 6 seconds. We'll use this in our spin function to delay
+# before the next command. Your rotation time my vary. This can be measured with a stop watch and implemented below.
+rotationTime = 6
+
+def takeoff:
+  send("takeoff", 5)
   
-def bounce(times, distance):
+def land:
+  send("land", 5)
+
+def spin(direction, times):
+  oneRotation = 360
+  rotations = oneRotation * times
+  delay = rotationTime * times
+  
+  if (direction == "right"):
+    send("cw " + str(rotations), rotationTime)
+  elif (direction == "left"):
+    send("ccw " + str(rotations), rotationTime)
+
+# Calculate speed per sec
+verticalTime = 5
+
+def bounce(distance, times):
   send("up " + distance)
   send("down " + distance)
 
-# Print message
-print("Mission completed successfully!")
+
+# Begin mission
+
+# Takeoff
+takeoff()
+
+# Spin right 2 times 
+spin("right", 2)
+
+# Bounce up and down 30 cm and repeat 5 times
+# bounce(30, 5)
+
+# Spin left 2 times
+spin("left", 3)
+
+# Land
+land()
 
 # Close the socket
 sock.close()
