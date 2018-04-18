@@ -59,21 +59,27 @@ receiveThread.start()
 # before the next command. Your rotation time my vary. This can be measured with a stop watch and implemented below.
 rotationTime = 6
 
-def takeoff:
+def takeoff():
   send("takeoff", 5)
-  
-def land:
+
+def land():
   send("land", 5)
 
 def spin(direction, times):
+  # One rotation is 360 degrees
   oneRotation = 360
+
+  # Convert the number of rotations to degrees
   rotations = oneRotation * times
+
+  # Calculate the delay to let the spin function complete
   delay = rotationTime * times
-  
+
+  # Spin right (cw) or left (ccw)
   if (direction == "right"):
-    send("cw " + str(rotations), rotationTime)
+    send("cw " + str(rotations), delay)
   elif (direction == "left"):
-    send("ccw " + str(rotations), rotationTime)
+    send("ccw " + str(rotations), delay)
 
 # Calculate speed per sec
 verticalTime = 5
@@ -88,7 +94,7 @@ def bounce(distance, times):
 # Takeoff
 takeoff()
 
-# Spin right 2 times 
+# Spin right 2 times
 spin("right", 2)
 
 # Bounce up and down 30 cm and repeat 5 times
