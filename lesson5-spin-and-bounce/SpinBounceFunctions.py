@@ -89,26 +89,28 @@ def spin(direction, times):
     send("ccw " + str(rotations), delay)
 
 # Calculate speed per sec
-verticalTime = 5
+verticalSpeed = 20.0
 
 def bounce(distance, times):
-  send("up " + distance)
-  send("down " + distance)
 
+  bounceDelay = distance/verticalSpeed
+  totalDelay = bounceDelay * times
 
-# Begin mission
+  for i in range(times):
+    send("down " + str(distance), bounceDelay)
+    send("up " + str(distance), bounceDelay)
 
 # Takeoff
 takeoff()
 
 # Spin right 2 times
-spin("right", 2)
+#spin("right", 2)
 
 # Bounce up and down 30 cm and repeat 5 times
-# bounce(30, 5)
+bounce(60, 5)
 
 # Spin left 2 times
-spin("left", 3)
+#spin("left", 3)
 
 # Land
 land()
