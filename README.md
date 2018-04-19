@@ -15,8 +15,8 @@ This online course will walk you through using Python to program your Tello dron
  - right xx (fly right a distance from 20 - 500 cm)
  - forward xx (fly forward a distance from 20 - 500 cm)
  - back xx (fly backward a distance from 20 - 500 cm)
- - cw xx (yaw clockwise with angle from 0 - 3600 degrees)
- - ccw xx (yaw counter clockwise with angle from 0 - 3600 degrees)
+ - cw xx (yaw clockwise with angle from 1 - 3600 degrees)
+ - ccw xx (yaw counter clockwise with angle from 1 - 3600 degrees)
  - flip x (flip l/r/f/b/bl/br/fl/fr)
 	 - l = left
 	 - r = right
@@ -27,10 +27,9 @@ This online course will walk you through using Python to program your Tello dron
 	 - fl = forward left
 	 - fr = forward right
 - speed x (set speed from 1 - 100 cm/s)
-- speed?
-- battery?
-- time?
-
+- speed? (get current speed)
+- battery? (get current battery percentage)
+- time? (get current flight time)
 
 Please feel free to get familiar with the code and we welcome any pull requests. If you'd like to join our online community you can do so here:
 
