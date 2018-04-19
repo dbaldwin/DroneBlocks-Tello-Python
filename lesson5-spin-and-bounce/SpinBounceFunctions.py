@@ -107,7 +107,7 @@ takeoff()
 spin("right", 2)
 
 # Bounce up and down 60 cm and repeat 5 times
-bounce(60, 5)
+bounce(60, 3)
 
 # Spin left 2 times
 spin("left", 3)
