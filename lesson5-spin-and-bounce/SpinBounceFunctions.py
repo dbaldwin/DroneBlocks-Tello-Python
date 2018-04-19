@@ -104,13 +104,13 @@ def bounce(distance, times):
 takeoff()
 
 # Spin right 2 times
-#spin("right", 2)
+spin("right", 2)
 
-# Bounce up and down 30 cm and repeat 5 times
+# Bounce up and down 60 cm and repeat 5 times
 bounce(60, 5)
 
 # Spin left 2 times
-#spin("left", 3)
+spin("left", 3)
 
 # Land
 land()
