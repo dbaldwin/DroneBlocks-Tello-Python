@@ -36,3 +36,7 @@ Please feel free to get familiar with the code and we welcome any pull requests.
 [https://www.facebook.com/groups/droneblocks](https://www.facebook.com/groups/droneblocks)
 
 If you'd prefer to code Tello using block programming then check out DroneBlocks in both the iOS and Android app stores.
+
+iOS: [DroneBlocks for iOS](https://itunes.apple.com/us/app/droneblocks/id1045826508?mt=8)
+
+Android: [DroneBlocks for Android](https://play.google.com/store/apps/details?id=com.unmannedairlines.droneblocks)
