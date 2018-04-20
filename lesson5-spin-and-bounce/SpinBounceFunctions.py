@@ -88,7 +88,7 @@ def spin(direction, times):
   elif (direction == "left"):
     send("ccw " + str(rotations), delay)
 
-# Calculate speed per sec
+# Use 20 cm/sec as vertical speed
 verticalSpeed = 20.0
 
 def bounce(distance, times):
