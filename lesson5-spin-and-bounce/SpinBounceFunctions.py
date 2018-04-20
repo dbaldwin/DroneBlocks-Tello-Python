@@ -94,7 +94,6 @@ verticalSpeed = 20.0
 def bounce(distance, times):
 
   bounceDelay = distance/verticalSpeed
-  totalDelay = bounceDelay * times
 
   for i in range(times):
     send("down " + str(distance), bounceDelay)
@@ -106,10 +105,10 @@ takeoff()
 # Spin right 2 times
 spin("right", 2)
 
-# Bounce up and down 60 cm and repeat 5 times
+# Bounce up and down 60 cm and repeat 3 times
 bounce(60, 3)
 
-# Spin left 2 times
+# Spin left 3 times
 spin("left", 3)
 
 # Land
