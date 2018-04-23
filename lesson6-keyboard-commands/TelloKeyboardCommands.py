@@ -52,7 +52,7 @@ while True:
   
   try:
     # Read keybord input from the user
-    message = input('')
+    message = raw_input('')
     
     # If user types quit then let's exit and close the socket
     if 'quit' in message:
