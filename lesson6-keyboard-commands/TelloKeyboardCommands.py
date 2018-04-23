@@ -54,7 +54,7 @@ while True:
     # Read keybord input from the user
     message = raw_input('')
     
-    # If user types quit then let's exit and close the socket
+    # If user types quit then lets exit and close the socket
     if 'quit' in message:
       print("Program exited sucessfully")
       sock.close()
@@ -63,7 +63,7 @@ while True:
     # Send the command to Tello
     send(message)
     
-  # Handle ctrl-c case to exit and close the socket
+  # Handle ctrl-c case to quit and close the socket
   except KeyboardInterrupt as e:
     sock.close()
     break
