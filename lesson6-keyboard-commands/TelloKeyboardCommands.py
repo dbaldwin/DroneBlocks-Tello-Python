@@ -1,3 +1,7 @@
+# This example script demonstrates how use Python to allow users to send SDK to Tello commands with their keyboard
+# This script is part of our course on Tello drone programming
+# https://learn.droneblocks.io/p/tello-drone-programming-with-python/
+
 # Import the necessary modules
 import socket
 import threading
