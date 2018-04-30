@@ -27,7 +27,7 @@ def send(message, delay=0):
     print("Sending message: " + message)
   except Exception as e:
     print("Error sending: " + str(e))
-    
+
   # Delay for a user-defined period of time
   time.sleep(delay)
 
@@ -50,10 +50,10 @@ CM_TO_INCHES = 2.54
 CM_TO_FEET = 30.48
 
 def convertUnits(distance, conversionType):
-  
+
   # Initalize the converted distance variable
   converted_distance = 0
-  
+
   # Convert cm to inches
   if (conversionType == "inches"):
     converted_distance = distance * CM_TO_INCHES
@@ -63,11 +63,11 @@ def convertUnits(distance, conversionType):
   # Default to cm in case where wrong conversionType is sent
   else:
     converted_distance = distance
-    
+
   # Cast to string so it can be sent to Tello
   return str(converted_distance)
-  
-      
+
+
 # Create and start a listening thread that runs in the background
 # This utilizes our receive function and will continuously monitor for incoming messages
 receiveThread = threading.Thread(target=receive)
@@ -85,14 +85,12 @@ send("takeoff", 5)
 
 # We'll fly in a star pattern using either cm or inches
 for i in range(5):
+    
   # Fly forward leg_distance and specify units
   send("forward " + convertUnits(leg_distance, "cm"), 5)
 
   # Rotate 144 degrees for the star pattern
-  send("cw 144");
+  send("cw 144", 5);
 
 # Land
 send("land")
-
-
-
