@@ -45,9 +45,9 @@ def receive():
       print("Error receiving: " + str(e))
       break
 
-# Constants for converting cm to inches feet
-CM_TO_INCHES = 2.54
-CM_TO_FEET = 30.48
+# Constants for converting in or ft to cm
+INCHES_TO_CM = 2.54
+FEET_TO_CM = 30.48
 
 def convertUnits(distance, conversionType):
   
@@ -56,10 +56,10 @@ def convertUnits(distance, conversionType):
   
   # Convert cm to inches
   if (conversionType == "in"):
-    converted_distance = distance * CM_TO_INCHES
+    converted_distance = distance * INCHES_TO_CM
   # Convert cm to feet
   elif (conversionType == "ft"):
-    converted_distance = distance * CM_TO_FEET
+    converted_distance = distance * FEET_TO_CM
   # Default to cm in case where wrong conversionType is sent
   else:
     converted_distance = distance
@@ -91,7 +91,7 @@ for i in range(5):
   send("forward " + convertUnits(leg_distance, units), 5)
 
   # Rotate 144 degrees for the star pattern
-  send("cw " + yaw_degrees, 5);
+  send("cw " + str(yaw_degrees), 5);
 
 # Land - no need to specify a delay
 send("land")
