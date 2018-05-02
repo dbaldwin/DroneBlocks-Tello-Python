@@ -55,7 +55,8 @@ receiveThread.start()
 INCHES_TO_CM = 2.54
 FEET_TO_CM = 30.48
 
-def convertUnits(distance, conversionType):
+# Convert the distance to whatever conversion type specified, defaults to cm
+def convertUnits(distance, conversionType="cm"):
   
   # Initalize the converted distance variable
   converted_distance = 0
