@@ -55,10 +55,10 @@ def convertUnits(distance, conversionType):
   converted_distance = 0
 
   # Convert cm to inches
-  if (conversionType == "inches"):
+  if (conversionType == "in"):
     converted_distance = distance * CM_TO_INCHES
   # Convert cm to feet
-  elif (conversionType == "feet"):
+  elif (conversionType == "ft"):
     converted_distance = distance * CM_TO_FEET
   # Default to cm in case where wrong conversionType is sent
   else:
@@ -74,8 +74,8 @@ receiveThread = threading.Thread(target=receive)
 receiveThread.daemon = True
 receiveThread.start()
 
-leg_distance = 60
-units = "cm"
+leg_distance = 5
+units = "ft"
 
 # Put Tello into command mode and delay 3 seconds
 send("command", 3)
@@ -83,11 +83,11 @@ send("command", 3)
 # Takeoff and delay 5 seconds
 send("takeoff", 5)
 
-# We'll fly in a star pattern using either cm or inches
+# We'll fly in a star pattern using either cm, in, or ft
 for i in range(5):
-    
+
   # Fly forward leg_distance and specify units
-  send("forward " + convertUnits(leg_distance, "cm"), 5)
+  send("forward " + convertUnits(leg_distance, units), 5)
 
   # Rotate 144 degrees for the star pattern
   send("cw 144", 5);
