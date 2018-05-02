@@ -71,7 +71,7 @@ def convertUnits(distance, conversionType="cm"):
   else:
     converted_distance = distance
     
-  # Cast to string so it can be sent to Tello
+  # Convert distance to string so it can be sent to Tello
   return str(converted_distance)
   
 # Define variables for our star mission
