@@ -27,7 +27,7 @@ def send(message, delay=0):
     print("Sending message: " + message)
   except Exception as e:
     print("Error sending: " + str(e))
-
+    
   # Delay for a user-defined period of time
   time.sleep(delay)
 
@@ -45,15 +45,15 @@ def receive():
       print("Error receiving: " + str(e))
       break
 
-# A couple
+# Constants for converting cm to inches feet
 CM_TO_INCHES = 2.54
 CM_TO_FEET = 30.48
 
 def convertUnits(distance, conversionType):
-
+  
   # Initalize the converted distance variable
   converted_distance = 0
-
+  
   # Convert cm to inches
   if (conversionType == "in"):
     converted_distance = distance * CM_TO_INCHES
@@ -63,19 +63,20 @@ def convertUnits(distance, conversionType):
   # Default to cm in case where wrong conversionType is sent
   else:
     converted_distance = distance
-
+    
   # Cast to string so it can be sent to Tello
   return str(converted_distance)
-
-
+  
+      
 # Create and start a listening thread that runs in the background
 # This utilizes our receive function and will continuously monitor for incoming messages
 receiveThread = threading.Thread(target=receive)
 receiveThread.daemon = True
 receiveThread.start()
 
-leg_distance = 5
-units = "ft"
+leg_distance = 24
+units = "in"
+yaw_degrees = 144
 
 # Put Tello into command mode and delay 3 seconds
 send("command", 3)
@@ -83,14 +84,14 @@ send("command", 3)
 # Takeoff and delay 5 seconds
 send("takeoff", 5)
 
-# We'll fly in a star pattern using either cm, in, or ft
+# We'll fly in a star pattern using cm, in, or ft
 for i in range(5):
-
+  
   # Fly forward leg_distance and specify units
   send("forward " + convertUnits(leg_distance, units), 5)
 
   # Rotate 144 degrees for the star pattern
-  send("cw 144", 5);
+  send("cw " + yaw_degrees, 5);
 
-# Land
+# Land - no need to specify a delay
 send("land")
