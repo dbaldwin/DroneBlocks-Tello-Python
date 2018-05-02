@@ -44,6 +44,12 @@ def receive():
       sock.close()
       print("Error receiving: " + str(e))
       break
+      
+# Create and start a listening thread that runs in the background
+# This utilizes our receive function and will continuously monitor for incoming messages
+receiveThread = threading.Thread(target=receive)
+receiveThread.daemon = True
+receiveThread.start()
 
 # Constants for converting in or ft to cm
 INCHES_TO_CM = 2.54
@@ -67,13 +73,7 @@ def convertUnits(distance, conversionType):
   # Cast to string so it can be sent to Tello
   return str(converted_distance)
   
-      
-# Create and start a listening thread that runs in the background
-# This utilizes our receive function and will continuously monitor for incoming messages
-receiveThread = threading.Thread(target=receive)
-receiveThread.daemon = True
-receiveThread.start()
-
+# Define variables for our star mission
 leg_distance = 24
 units = "in"
 yaw_degrees = 144
