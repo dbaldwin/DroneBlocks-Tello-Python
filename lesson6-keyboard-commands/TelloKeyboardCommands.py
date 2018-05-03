@@ -56,7 +56,12 @@ while True:
   
   try:
     # Read keybord input from the user
-    message = input('')
+    if (sys.version_info > (3, 0)):
+      # Python 3 compatibility
+      message = input('')
+    else:
+      # Python 2 compatibility
+      message = raw_input('')
     
     # If user types quit then lets exit and close the socket
     if 'quit' in message:
