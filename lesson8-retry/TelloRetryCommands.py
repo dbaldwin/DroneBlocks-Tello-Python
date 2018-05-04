@@ -6,65 +6,89 @@
 import socket
 import threading
 
-# Global variable that will contain the response from Tello
-response = None
+class Tello:
 
-# Boolean value that toggles whether when the response timer is done receiving
-timerIsComplete = false
+  # Called when we create an instance of our class
+  def __init__(self):
 
-# Used to set the boolean flag when the send/receive timer is complete
-def cancelTimer():
-  timerIsComplete = true
+    # Variable that will contain the response from Tello
+    self.response = None
 
-# Send the message to Tello and allow for a delay in seconds
-def send(message):
-  
-  # We are about to start the timer
-  timerIsComplete = false
-  
-  # Create a timer that will run for 5 seconds and call cancelTimer when done
-  timer = threading.Timer(5, cancelTimer)
-  
-  # Begin the timer
-  timer.start()
-  
-  # Try to send the message otherwise print the exception
-  try:
-    sock.sendto(message.encode(), tello_address)
-    print("Sending message: " + message)
-  except Exception as e:
-    print("Error sending: " + str(e))
-  
-  # If there is no response let's print a message
-  while response is None:
-    if timerIsComplete is True:
-      print("There was no reply from Tello")
-  
-  # End the timer
-  timer.cancel()
-  
-  # Set data to the response from Tello
-  data = response.decode(encoding='utf-8'))
-  
-  # Reset response for the next time we read data
-  response = None
-  
-  # Return the data to the caller
-  return data
-  
+    # Boolean value that toggles whether when the response timer is done receiving
+    self.timerIsComplete = False
 
-def receive():
-  # Continuously loop and listen for incoming messages
-  while True:
-    # Try to receive the message otherwise print the exception
+    # IP and port of Tello
+    self.tello_address = ('192.168.10.1', 8889)
+
+    # Create a UDP connection where we'll send commands
+    self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+    # Create and start a listening thread that runs in the background
+    # This utilizes our receive function and will continuously monitor for incoming messages
+    self.receive_thread = threading.Thread(target=self.receive)
+    self.receive_thread.daemon = True
+    self.receive_thread.start()
+
+  # Used to set the boolean flag when the send/receive timer is complete
+  def cancelTimer(self):
+    self.timerIsComplete = True
+
+  # Send the message to Tello and allow for a delay in seconds
+  def send(self, message):
+
+    # We are about to start the timer
+    self.timerIsComplete = False
+
+    # Create a timer that will run for 5 seconds and call cancelTimer when done
+    timer = threading.Timer(5, self.cancelTimer)
+
+    # Begin the timer
+    timer.start()
+
+    # Try to send the message otherwise print the exception
     try:
-      response, ip_address = sock.recvfrom(128)
-      print("Received message: " + response.decode(encoding='utf-8'))
+      self.sock.sendto(message.encode(), self.tello_address)
+      print("Sending message: " + message)
     except Exception as e:
-      # If there's an error close the socket and break out of the loop
-      sock.close()
-      print("Error receiving: " + str(e))
-      break
+      print("Error sending: " + str(e))
 
-      
-send("command")
+    # If there is no response let's print a message
+    while self.response is None:
+      if self.timerIsComplete is True:
+        print("There was no reply from Tello")
+        break
+
+    # End the timer
+    timer.cancel()
+
+    # Set data to the response from Tello
+    if self.response is not None:
+      data = self.response.decode(encoding='utf-8')
+    else:
+      data = "Timeout"
+
+    # Reset response for the next time we read data
+    self.response = None
+
+    # Return the data to the caller
+    return data
+
+
+  def receive(self):
+    # Continuously loop and listen for incoming messages
+    while True:
+      # Try to receive the message otherwise print the exception
+      try:
+        self.response, ip_address = self.sock.recvfrom(128)
+        print("Received message: " + self.response.decode(encoding='utf-8'))
+      except Exception as e:
+        # If there's an error close the socket and break out of the loop
+        self.sock.close()
+        print("Error receiving: " + str(e))
+        break
+
+tello = Tello()
+
+commandResponse = tello.send("land")
+
+print(commandResponse)
