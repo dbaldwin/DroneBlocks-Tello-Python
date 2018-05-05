@@ -19,9 +19,15 @@ class Tello:
 
     # IP and port of Tello
     self.tello_address = ('192.168.10.1', 8889)
+    
+    # IP and port of sending computer
+    self.local_address = ('', 9000)
 
     # Create a UDP connection where we'll send commands
     self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    
+    # Bind to the local address and port
+    self.sock.bind(self.local_address)
 
     # Create and start a listening thread that runs in the background
     # This utilizes our receive function and will continuously monitor for incoming messages
@@ -86,9 +92,3 @@ class Tello:
         self.sock.close()
         print("Error receiving: " + str(e))
         break
-
-tello = Tello()
-
-commandResponse = tello.send("land")
-
-print(commandResponse)
