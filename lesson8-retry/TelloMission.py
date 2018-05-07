@@ -17,7 +17,7 @@ def retry(command, times):
   # Send command to Tello and get response
   response = tello.send(command)
 
-  # Delay before we end the next command
+  # Delay before we send the next command
   time.sleep(delay)
 
   # See if the response was invalid
@@ -40,8 +40,8 @@ def retry(command, times):
 # Issue a series of SDK commands and watch the retry logic in action
 retry("command", 3)
 retry("takeoff", 3)
-retry("forward 200", 3)
-retry("back 200", 3)
+retry("go 60 60 60 5", 3)
+retry("go -60 -60 -60 5", 3)
 retry("flip b", 3)
 retry("flip f", 3)
 retry("land", 3)
