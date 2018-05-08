@@ -38,10 +38,19 @@ def retry(command, times):
         time.sleep(delay)
 
 # Issue a series of SDK commands and watch the retry logic in action
-retry("command", 3)
-retry("takeoff", 3)
-retry("go 60 60 60 5", 3)
-retry("go -60 -60 -60 5", 3)
-retry("flip b", 3)
-retry("flip f", 3)
-retry("land", 3)
+retry("command", 2)
+retry("takeoff", 2)
+
+# Send an invalid command to Tello
+retry("bad command", 2)
+
+# Loop for times to fly back and forth
+for i in range(4):
+  retry("forward 75", 2)
+  retry("cw 180", 2)
+  
+# Send a command with a value out of range
+retry("speed 1000", 2)
+
+# Land
+retry("land", 2)
