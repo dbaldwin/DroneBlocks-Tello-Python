@@ -44,7 +44,7 @@ retry("takeoff", 2)
 # Send an invalid command to Tello
 retry("bad command", 2)
 
-# Loop for times to fly back and forth
+# Loop four times to fly back and forth
 for i in range(4):
   retry("forward 75", 2)
   retry("cw 180", 2)
