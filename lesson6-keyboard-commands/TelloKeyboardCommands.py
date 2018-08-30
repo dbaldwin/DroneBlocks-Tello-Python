@@ -6,6 +6,7 @@
 import socket
 import threading
 import time
+import sys
 
 # IP and port of Tello
 tello_address = ('192.168.10.1', 8889)
