@@ -17,7 +17,7 @@ sock.bind(tello_address)
 
 # Tello's address
 sender_address = ('', 9000)
-tello_commands = ["command", "takeoff", "land", "up", "down", "left", "right", "back", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
+tello_commands = ["command", "takeoff", "land", "forward", "back", "up", "down", "left", "right", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
 
 def recv():
     while True:
@@ -32,8 +32,9 @@ def recv():
             print ('\nExit . . .\n' + str(e))
             break
             
-def response(data):  
-    if data in tello_commands:
+def response(data):
+    data = data.split()
+    if data[0] in tello_commands:
       return "OK"
     else:
       return "FALSE"
@@ -54,7 +55,12 @@ def response(data):
     
             
 recvThread = threading.Thread(target=recv)
+recvThread.daemon = True
 recvThread.start()
+
+# So we can kill the script with ctrl-c
+while True:
+    time.sleep(1)
 
 #sendThread = threading.Thread(target=send)
 #sendThread.start()
