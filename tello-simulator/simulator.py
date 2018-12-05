@@ -9,14 +9,14 @@ import sys
 import time
 
 # Address of this computer and port simulating Tello
-tello_address = ('10.0.1.6', 8889)
+tello_address = ('', 8889)
 
 # Create a local socket and bind to it
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(tello_address)
 
 # Tello's address
-sender_address = ('10.0.1.6', 9000)
+sender_address = ('', 9000)
 tello_commands = ["command", "takeoff", "land", "up", "down", "left", "right", "back", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
 
 def recv():
@@ -25,6 +25,8 @@ def recv():
             data, address = sock.recvfrom(2048)
             print("Received command: " + data.decode(encoding="utf-8"))
             reply = response(data.decode(encoding="utf-8"))
+            # Delay before we respond back
+            time.sleep(3)
             sock.sendto(reply.encode(), sender_address)
         except Exception as e:
             print ('\nExit . . .\n' + str(e))
