@@ -17,7 +17,7 @@ sock.bind(tello_address)
 
 # Tello's address
 sender_address = ('', 9000)
-tello_commands = ["command", "takeoff", "land", "forward", "back", "up", "down", "left", "right", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
+tello_commands = ["command", "takeoff", "land", "forward", "back", "up", "down", "left", "right", "go", "curve", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
 
 def recv():
     while True:
