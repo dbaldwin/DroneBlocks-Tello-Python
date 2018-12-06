@@ -34,10 +34,13 @@ def recv():
             
 def response(data):
     data = data.split()
-    if data[0] in tello_commands:
-      return "OK"
+
+    if data[0] == "battery?":
+        return "75"
+    elif data[0] in tello_commands:
+        return "OK"
     else:
-      return "FALSE"
+        return "FALSE"
 
 
 #def send():
