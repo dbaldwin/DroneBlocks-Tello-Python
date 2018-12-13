@@ -16,7 +16,6 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 sock.bind(tello_address)
 
 # Tello's address
-sender_address = ('', 9000)
 tello_commands = ["command", "takeoff", "land", "forward", "back", "up", "down", "left", "right", "go", "curve", "cw", "ccw", "flip", "speed", "Speed?", "Battery?", "Time?"]
 
 def recv():
@@ -27,7 +26,7 @@ def recv():
             reply = response(data.decode(encoding="utf-8"))
             # Delay before we respond back
             time.sleep(3)
-            sock.sendto(reply.encode(), sender_address)
+            sock.sendto(reply.encode(), address)
         except Exception as e:
             print ('\nExit . . .\n' + str(e))
             break
