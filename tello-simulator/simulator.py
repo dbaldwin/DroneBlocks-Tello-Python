@@ -22,7 +22,7 @@ def recv():
     while True:
         try:
             data, address = sock.recvfrom(2048)
-            print("Received command: " + data.decode(encoding="utf-8"))
+            print("Received command: " + data.decode(encoding="utf-8") + " from: {0}".format(address))
             reply = response(data.decode(encoding="utf-8"))
             # Delay before we respond back
             time.sleep(3)
